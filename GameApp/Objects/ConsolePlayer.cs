@@ -23,6 +23,7 @@ public class ConsolePlayer : Player
                 Console.WriteLine("Choose the Card to Invoke or Press <<Enter>> to Omit:");
                 Console.WriteLine();
                 Print.Hand(this);
+
                 var userInput = Console.ReadKey();
                 if (userInput.Key != ConsoleKey.Enter)
                 {
@@ -71,8 +72,10 @@ public class ConsolePlayer : Player
                     Card targetCard = game.Board[enemyPlayer][targetCardCoordinates];
 
                     effectCoordinates = AI.GetEffectToCast(ownCard, targetCard, game);
+
                     Rules.CastEffect(this, enemyPlayer, cardCoordinates, targetCardCoordinates, game, ownCard.Effects[effectCoordinates]);
                     Console.WriteLine($"{ownCard.Name} casted {ownCard.Effects[effectCoordinates].Name} Effect on {targetCard.Name}");
+
                     Print.PressEnterToContinue();
                     Console.Clear();
                     return;
@@ -94,15 +97,18 @@ public class ConsolePlayer : Player
                 }
             }
             Console.WriteLine(" Press 0 to Attack || Press 1 to Cast an Effect ");
-            if (UtilsForConsole.UserAnswer())// devuelve true si el usuario pulso 1,si toco 0 lo contrario
-            {//mejorar legibilidad y construccion de RulesCastEffect
+            if (UtilsForConsole.UserAnswer())// devuelve false si el usuario puso 0, y true si pulso 1
+            {
+
                 Card ownCard = game.Board[this][cardCoordinates];
                 Card targetCard = game.Board[enemyPlayer][targetCardCoordinates];
 
-                Console.WriteLine("You have selected to Cast an Effect,now select the Effect to Cast");
+                Console.WriteLine("You have selected to Cast an Effect,now select the Effect to Cast ");
                 Print.ShowCardEffects(ownCard);
+
                 var userInput = Console.ReadKey(true);
                 effectCoordinates = int.Parse(userInput.KeyChar.ToString());
+
                 Rules.CastEffect(this, enemyPlayer, cardCoordinates, targetCardCoordinates, game, ownCard.Effects[effectCoordinates]);
                 Console.WriteLine($"{ownCard.Name} casted {ownCard.Effects[effectCoordinates].Name} Effect on {targetCard.Name}");
             }
@@ -111,6 +117,7 @@ public class ConsolePlayer : Player
                 Rules.AttackCard(this, enemyPlayer, cardCoordinates, targetCardCoordinates, game);
                 Console.WriteLine($"{game.Board[this][cardCoordinates].Name} attacked {game.Board[enemyPlayer][targetCardCoordinates].Name} ");
             }
+            game.UpdateBoard();
             Print.PressEnterToContinue();
             Console.Clear();
         }

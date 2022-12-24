@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Franco\\franco\\Proyects\\2ndUniversityProyect\\GameLibrary\\GameLibrary.csproj",
+      "projectUniqueName": "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj",
       "projectName": "GameLibrary",
-      "projectPath": "C:\\Franco\\franco\\Proyects\\2ndUniversityProyect\\GameLibrary\\GameLibrary.csproj",
+      "projectPath": "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj",
       "packagesPath": "C:\\Users\\Franco\\.nuget\\packages\\",
-      "outputPath": "C:\\Franco\\franco\\Proyects\\2ndUniversityProyect\\GameLibrary\\obj\\",
+      "outputPath": "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Franco\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -17,14 +17,15 @@ public static class Rules
         var attackingCard = game.Board[currentPlayer].ElementAt(attackingCardCoordinates);
         var cardToAttack = game.Board[currentOpponent].ElementAt(targetCardCoordinates);
         attackingCard.Attack(cardToAttack);
-        currentPlayer.DecreaseEnergy();
+        currentPlayer.DecreaseEnergy();//atacar cuesta 1 de energia
     }
     public static void CastEffect(Player currentPlayer, Player enemyPlayer, int cardCoordinates, int targetCardCoordinates, Game game, IEffect effect)
     {
-        Card ownCard = game.Board[currentPlayer][cardCoordinates];
-        Card targetCard = game.Board[enemyPlayer][targetCardCoordinates];
+        Card ownCard = game.Board[currentPlayer][cardCoordinates];//obteniendo la carta seleccionada
+        Card targetCard = game.Board[enemyPlayer][targetCardCoordinates];//obteniendo la carta objetivo
+
         effect.ActivateEffect(ownCard, targetCard, game, currentPlayer.Number, enemyPlayer.Number);
-        currentPlayer.DecreaseEnergy(2);
+        currentPlayer.DecreaseEnergy(2);//lanzar efecto cuesta 2 de energia
 
     }
     public static bool IsEndOfGame(Player Player1, Player Player2, Game game)
@@ -55,10 +56,10 @@ public static class Rules
         }
         return null;
     }
-    public static bool HasLost(Player player, Game game)
+    public static bool HasLost(Player player, Game game)//basicamente si no tienes nada,nignuna carta,pierdes
     => player.Deck.Count == 0 && player.Hand.Count == 0 && game.Board[player].Count == 0;
 
-    public static double GetFinalScore(Player player1, Game game)
+    public static double GetFinalScore(Player player1, Game game)//suma la vida de todas las cartas sobrevivientes,esto hace entender q no es un juego de matar simplemente,es un juego de sobrevivir
     {
         double result = 0;
         foreach (Card card in game.Board[player1])
