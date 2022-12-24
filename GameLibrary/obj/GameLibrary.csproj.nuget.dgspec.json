@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj": {}
+    "C:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj": {}
   },
   "projects": {
-    "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj": {
+    "C:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj",
+        "projectUniqueName": "C:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj",
         "projectName": "GameLibrary",
-        "projectPath": "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj",
+        "projectPath": "C:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\GameLibrary.csproj",
         "packagesPath": "C:\\Users\\Franco\\.nuget\\packages\\",
-        "outputPath": "c:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\obj\\",
+        "outputPath": "C:\\Franco\\franco\\Proyects\\Proyecto_Entregado\\GameLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Franco\\AppData\\Roaming\\NuGet\\NuGet.Config"

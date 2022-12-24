@@ -45,7 +45,7 @@ public static class Print
     {
         Console.WriteLine();
         Console.WriteLine("Press Enter to continue...");
-        Console.ReadKey();
+        Console.ReadKey(true);
     }
     public static void ShowPlayerEnergy(Player currentPlayer)
     {

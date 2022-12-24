@@ -29,7 +29,7 @@ class Program
         Player player2 = new ConsolePlayer(new Player(Console.ReadLine(), deck2, 2, false));
 
         // //entradas de usuario de prueba 
-        // string Card = "Name: Magela Cornelio ; InitialATK: 2 ; InitialHealth: 50 ; InitialSpecie: Angel ;";
+        // string Card = "Name: Magela Cornelio ; ATK: 2 ; HP: 50 ; Specie: Angel ;";
         // string Effect = "EffectName: Personalized Effect ; ownCard.AttackValue = enemyCard.AttackValue ; IF: ownCard.Health ownCard.MaxHealth < ; ownCard.Health = 5 4 + 1 - ; enemyCard.AttackValue = 1 ; EndIF ; IF: enemyCard.Health enemyCard.MaxHealth 2 / > ; IF: enemyCard.Health 50 < ; ownCard.AttackValue = 50 ; EndIF ; IF: enemyCard.Health 50 > ; ownCard.Health = 100 ; EndIF ;";
         // //Explicacion del efecto de arriba :atake de mi carta = atake del enemigo, si mi vida es mayor q la mitad de la vida max ,curame 8 de vida y el atake enemigo =1.  fin if.  si vida enemigo es mayor q su mitad max entonces si su vida es < 50 ,mi atake = 50 fin if. Si vida enemigp > 50 , mi vida = 100. endif
 

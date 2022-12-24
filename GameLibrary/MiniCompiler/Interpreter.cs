@@ -56,13 +56,13 @@ namespace MiniCompiler
                     case "Name:":
                         tokenList.Add(new Token(TokenType.NAME, UtilsForInterpreter.AddStringFromPositionToEOF(splitedUserInput, position + 1)));
                         break;
-                    case "InitialHealth:":
+                    case "HP:":
                         tokenList.Add(new Token(TokenType.HEALTH));
                         break;
-                    case "InitialATK:":
+                    case "ATK:":
                         tokenList.Add(new Token(TokenType.ATK));
                         break;
-                    case "InitialSpecie:":
+                    case "Specie:":
                         tokenList.Add(new Token(TokenType.SPECIE, UtilsForInterpreter.GetSpecieFromString(splitedUserInput, position + 1)));
                         break;
                     case "EffectName:":
