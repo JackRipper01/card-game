@@ -1,6 +1,7 @@
-namespace GameLibrary;
+namespace GameLibrary.Objects;
 
-public enum Species {
+public enum Species
+{
     Angel,
     Basilisk,
     Cthulhu,
