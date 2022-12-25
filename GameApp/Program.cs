@@ -65,10 +65,10 @@ class Program
                     if (UtilsForConsole.UserAnswer())
                     {
                         Console.WriteLine("Write the number of Effets to be added");
-                        int amountOfAditionalEffects = 1;
+                        int amountOfAditionalEffects = int.Parse(Console.ReadLine());
                         for (int j = 1; j <= amountOfAditionalEffects; j++)
                         {
-                            Console.WriteLine($"Write the code of the Effect number {j + 1} :");
+                            Console.WriteLine($"Write the code of the Effect to Add :");
                             interpreter.EatUserCode(Console.ReadLine());
                             interpreter.BuildEffect(player.Deck.Last());
                             Console.WriteLine($"{player.Deck.Last().Effects.Last().Name} Effect Added !!");
