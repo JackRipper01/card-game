@@ -5,22 +5,33 @@ namespace MiniCompiler
     public interface IInterpreter
     {   //EatUserCode:
         //Recibe el codigo del usuario como string y lo "traduce",guardando en nuevas variables las propiedades de la nueva carta 
-        //y guarda en un new ClientEffectInstruction,especificamente en su propiedad Iinstruction,el arbol donde se ejecutan las instrucciones.
+        //y guarda en ClientEffectInstruction,especificamente en su propiedad Iinstruction,el arbol donde se ejecutan las instrucciones.
+
+        //BuildCard:
+        //Devuelve un objeto tipo Card donde sus propiedades son las extraidas de por el EatUserCode y guardadas en newInitialName,etc,etc mas abajo.
+
+        //BuildEffect:
+        //toma una carta y en la lista de efectos de la carta,adiciona el efecto.
         public void EatUserCode(string input);
         public Card BuildCard();
         public void BuildEffect(Card card);
     }
     public class Interpreter : IInterpreter
     {
-        List<string> splitedUserInput = new List<string>();
-        List<Token> tokenList = new List<Token>();
-        ClientEffectInstructionsAST userCardEffect = new ClientEffectInstructionsAST();
+        List<string> splitedUserInput = new List<string>();//codigo del usuario dividido en strings.
+        List<Token> tokenList = new List<Token>();//lista donde se encuentran todos los tokens extraidos del codigo del usuario.
+        ClientEffectInstructionsAST userCardEffect = new ClientEffectInstructionsAST();//arbol de instrucciones en el q fue transformado el codigo del usuario.
 
-        //estas variables no se usan d la misma manera q los efectos con el ast pq quiero "fijar" esos valores,por ejemplo el ataque y la vida ,esos valores son la vida y ataque MAXIMOS q e algo fijo
-        //podria usar un ast para lograr la misma funcionalidad pero no lo veo necesario en este caso.
+        //estas variables no se usan d la misma manera q los efectos con el AST pq quiero "fijar" esos valores,por ejemplo el ataque y la vida ,esos valores son la vida y ataque MAXIMOS q es algo fijo.
+        //por eso no las uso de la misma manera q las otras caracteristicas de las cartas con el AST.
+        //////////////////////////////////
         string newInitialCardName = ""; int newInitialCardATK; int newInitialCardHealth; Species newInitialCardSpecie;
         string newEffectName = "";
+        ///////////////////////////////////
+
         public void EatUserCode(string input)
+        //Recibe el codigo del usuario como string y lo "traduce",guardando en nuevas variables las propiedades de la nueva carta 
+        //y guarda en ClientEffectInstruction,especificamente en su propiedad Iinstruction,el arbol donde se ejecutan las instrucciones.
         {
             splitedUserInput = new List<string>();
             tokenList = new List<Token>();
@@ -29,14 +40,21 @@ namespace MiniCompiler
             ParseCardEffect(userCardEffect.instructions);
         }
 
+
+        //Devuelve un objeto tipo Card donde sus propiedades son las extraidas de por el EatUserCode y guardadas en newInitialName,etc,etc mas abajo.
         public Card BuildCard() => new Card(newInitialCardName, newInitialCardATK, newInitialCardHealth, newInitialCardSpecie);
+
+
+        //toma una carta y en la lista de efectos de la carta,adiciona el efecto.
         public void BuildEffect(Card card)
         {
             if (userCardEffect.instructions.Count > 0)
                 card.Effects.Add(new UserEffect(newEffectName, userCardEffect));
         }
 
+
         private void Tokenizing(string input)
+        //analiza cada string de la lista de string y si es compatible con su respectivo token,es adicionado a la lista de token como su correspondiente Token.
         {
             splitedUserInput = input.Split(' ', StringSplitOptions.TrimEntries).ToList();
             for (int position = 0; position < splitedUserInput.Count; position++)
@@ -45,10 +63,10 @@ namespace MiniCompiler
                 if (UtilsForInterpreter.IsNumber(subject))
                 { tokenList.Add(new Token(TokenType.NUMBER, subject)); continue; }
 
-                else if (subject.Contains("Card.") || subject.Contains("NOC"))
+                else if (subject.Contains("Card.") || subject.Contains("NOC") || subject.Contains("Get"))
                 { tokenList.Add(new Token(TokenType.IDENTIFIER, subject)); continue; }
 
-                else if (subject.Contains("(Player1)") || subject.Contains("Player2)"))
+                else if (subject.Contains("(Player1)") || subject.Contains("(Player2)"))
                 { tokenList.Add(new Token(TokenType.ACTION, subject)); continue; }
 
                 switch (subject)
@@ -115,6 +133,7 @@ namespace MiniCompiler
 
         private void ParseCardEffect(List<Iinstruction> instructionList)
         {
+            //analiza token por token en la lista de token y eliminando cada token "comido",y va creando el AST
             while (tokenList.Count > 0)
             {//TO DO: make a few methods in UtilsInterpreter to verify if the input is valid
                 Token subject = tokenList[0];
@@ -153,17 +172,18 @@ namespace MiniCompiler
 
                 else if (subject.type == TokenType.IDENTIFIER)
                 {
-                    if (tokenList[0 + 1].type == TokenType.ASSIGN)
+                    if (tokenList[1].type == TokenType.ASSIGN)// <=> si lo q le sigue no es un "=",lanza excepcion
                         tokenList.RemoveAt(1);
                     else
                         throw new FormatException();
+
                     tokenList.RemoveAt(0);
                     instructionList.Add(new Assignment(subject, ParseExpr(0)));
 
                 }
 
                 else if (subject.type == TokenType.IF)
-                {
+                {//aqui creo una nueval lista de instruccione para el if,y llamo recursivo para rellenar dicha lista ,caso base seria llegar al final d la lista de tokens,o llegar a un EndIf.
                     List<Iinstruction> newIfInstructionList = new List<Iinstruction>();
                     tokenList.RemoveAt(0);
                     instructionList.Add(new IF(ParseExpr(0), newIfInstructionList));
@@ -184,6 +204,12 @@ namespace MiniCompiler
 
         private IExpr ParseExpr(int startOfExpr)
         {
+            //parsea una expresion en concreto,una combinatoria en plan calculos,o una condicion.
+            //se utiliza el stack ya q el lenguaje es en modo posfijo.Se trabaja con BinaryExpresion q hereda de IExpr 
+            //,la logica seria,analizo cada tipo de token,lo voy pusheando,cuadno llegue al tercer token,analizo q tipo de 
+            //operacion es,tanto condicional,como matematica,y sustituyo todo por una instancia de operacion binaria del AST 
+            //donde sus elementos o hijos serian otras instancias de operaciones binarias,o serian simplemente valores enteros.
+
             Stack<IExpr> stack = new Stack<IExpr>();
             while (true)
             {
@@ -256,7 +282,7 @@ namespace MiniCompiler
                     }
                 }
             }
-            return stack.Pop();
+            return stack.Pop();//retorna un solo nodo expresion binaria donde sus hijos y los hijos de sus hijos .....  son todas las expresiones binarias creadas.
         }
 
     }
