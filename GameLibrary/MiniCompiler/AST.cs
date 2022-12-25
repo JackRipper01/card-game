@@ -1,9 +1,9 @@
 namespace MiniCompiler;
-interface IExpr
+interface IExpr //creo esta interfaz para solamente llamar .Evaluate a cada tipo distinto de expresion,tanto binaria,como no binaria.
 {
     public int Evaluate();
 }
-abstract class BinaryExpr : IExpr
+abstract class BinaryExpr : IExpr//clase d la cual heredaran todas las expresiones binarias .
 {
     public IExpr left;
     public IExpr right;
@@ -15,7 +15,7 @@ abstract class BinaryExpr : IExpr
     public abstract int Evaluate();
 }
 
-class Plus : BinaryExpr
+class Plus : BinaryExpr//operacion binaria q suma el resultado de evaluar la expresion de la izq mas el resultado de hacer lo mismo en la derecha,devuelve  el resultado de la suma
 {
     public Plus(IExpr left, IExpr right) : base(left, right) { }
     public override int Evaluate()
@@ -54,7 +54,7 @@ class Div : BinaryExpr
     }
 }
 
-class Number : IExpr
+class Number : IExpr//expresion basica no binaria,devuelve el valor de la expresion
 {
     public int value;
     public Number(int value)
@@ -67,7 +67,7 @@ class Number : IExpr
     }
 }
 
-class Identifier : IExpr
+class Identifier : IExpr//expresion basica no binaria q representa el valor actual en el juego,de alguna estadistica del juego ,este valor es extraido del diccionario de estadisticas de cartas.
 {
     string key;
     public Identifier(string key) => this.key = key;
@@ -75,7 +75,7 @@ class Identifier : IExpr
     public int Evaluate() => GameData.CardStats[key];
 }
 
-class Higher : BinaryExpr
+class Higher : BinaryExpr//operacion binaria q verifica si el resultado de evaluar la expresion de la isq es MAYOR QUE el resultado de hacer lo mismo en la derecha,devuelve true si se cumple,false si no.
 {
     public Higher(IExpr left, IExpr right) : base(left, right) { }
 
@@ -88,7 +88,7 @@ class Higher : BinaryExpr
     }
 }
 
-class Minor : BinaryExpr
+class Minor : BinaryExpr//operacion binaria q verifica si el resultado de evaluar la expresion de la isq es MENOR QUE el resultado de hacer lo mismo en la derecha,devuelve true si se cumple,false si no.
 {
     public Minor(IExpr left, IExpr right) : base(left, right) { }
 
@@ -101,7 +101,7 @@ class Minor : BinaryExpr
     }
 }
 
-class Same : BinaryExpr
+class Same : BinaryExpr//operacion binaria q verifica si el resultado de evaluar la expresion de la isq es IGUAL QUE el resultado de hacer lo mismo en la derecha,devuelve 1(true) si se cumple,0(false) si no.
 {
     public Same(IExpr left, IExpr right) : base(left, right) { }
 
@@ -114,7 +114,7 @@ class Same : BinaryExpr
     }
 }
 
-class AND : BinaryExpr
+class AND : BinaryExpr//operacion binaria q verifica si el resultado de evaluar la expresion de la isq Y  el resultado de hacer lo mismo en la derecha devuelven 1(true)los dos,en dicho caso devolveria 1,sino se cumple dicha condicion devuelve 0(false).
 {
     public AND(IExpr left, IExpr right) : base(left, right) { }
 
@@ -127,7 +127,7 @@ class AND : BinaryExpr
     }
 }
 
-class OR : BinaryExpr
+class OR : BinaryExpr//operacion binaria q devuelve 1 si el resultado de evaluar la exp isq devuelve 1 o si pasa lo mismo con la de la derecha.Si no se cumple devuelve 0.
 {
     public OR(IExpr left, IExpr right) : base(left, right) { }
 
@@ -141,12 +141,12 @@ class OR : BinaryExpr
 }
 
 
-public interface Iinstruction
+public interface Iinstruction//forma de una instruccion,una asignacion de un valor a un identificadr por ejemplo,un If,el nodo raiz,etc.
 {
     void Execute();
 }
 
-class IF : Iinstruction
+class IF : Iinstruction//verifica la condicion ,si devuelve 1,entonces ejecuta la instruccion de la lista de instrucciones,sino no hace nada.
 {
     IExpr condition;
     List<Iinstruction> ifInstructions = new List<Iinstruction>();
@@ -168,7 +168,7 @@ class IF : Iinstruction
     }
 }
 
-class Assignment : Iinstruction
+class Assignment : Iinstruction//asigna el valor de la expr de la erecha al identificador de la isq ,esto modifica el valor de la carta en el diccionario,luego al actualizarse las estadisticas a partir del diccionario,el valor en el juego de la carta sera alterado.
 {
     Token leftIdentifier;
     IExpr rightExpr;
@@ -184,7 +184,7 @@ class Assignment : Iinstruction
     }
 }
 
-class Action : Iinstruction
+class Action : Iinstruction//accion del juego ,ejecuta la accion del diccionario de acciones de tipo del delegado void Actions().
 {
     Token stringAction;
 
@@ -197,7 +197,7 @@ class Action : Iinstruction
         GameData.GameActions[stringAction.value]();
     }
 }
-class ClientEffectInstructionsAST : Iinstruction
+class ClientEffectInstructionsAST : Iinstruction//nodo principal y raiz donde contiene uuna lista de instrucciones donde cada instruccion va a ser ejecutada y va a hacer lo q le toca,evaluandose recursivamente el metodo Evaluate() y Execute() hasta q se altere el juego de manera satisfactoria.
 {
     public List<Iinstruction> instructions = new List<Iinstruction>();
 

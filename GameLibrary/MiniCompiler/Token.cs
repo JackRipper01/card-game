@@ -10,7 +10,7 @@ namespace MiniCompiler
     {
         public TokenType type;
         public string value = "";
-        public Species specie;
+        public Species specie { get; set; }
         public Token(TokenType type, string repr = "")
         {
             this.type = type;

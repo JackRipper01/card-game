@@ -23,7 +23,7 @@ public static class UtilsForInterpreter
     }
 
 
-    //guarda un string desde la posicion "position" hasta el simbolo ";"
+    //dado una lista de string y un int position,devuelve un string desde la posicion "position" hasta el simbolo ";"
     public static string AddStringFromPositionToEOF(List<string> splitedUserInput, int position)
     {
         string result = "";

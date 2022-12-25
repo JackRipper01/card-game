@@ -44,8 +44,8 @@ public class UserEffect : IEffect
 
         if (GameData.CardStats.Count != 0) GameData.PreparingGameStatsDic();
 
-        GameData.UpdatingGameActionsDic(ownCard, targetCard, game);
-        GameData.UpdatingGameStatsDic(ownCard, targetCard, game);
+        GameData.UpdatingGameActionsDic(ownCard, targetCard, game);//actualiza el dic de acciones.
+        GameData.UpdatingGameStatsDic(ownCard, targetCard, game);//actualiza dic de estadisticas
         instructions.Execute(); //ejecuta el arbol de instrucciones ,el cual usa ambos diccionarios para alterar el juego modificandolos
         GameData.UpdateCardStats(ownCard, targetCard);//actualiza el estado del juego mediante los diccionarios modificados por el arbol de instrucciones,lo q hace q los efectos hagan efecto XD
     }
