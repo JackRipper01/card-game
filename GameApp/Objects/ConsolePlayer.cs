@@ -5,7 +5,9 @@ public class ConsolePlayer : Player
 {
     public ConsolePlayer(Player player) : base(player.Name, player.Deck, player.Number, player.IsAI) { }
 
-    public void PlayInvocationPhase(Player enemyPlayer, Game game)
+    public void PlayInvocationPhase(Player enemyPlayer, Game game)//Mientras el jugador tenga energia y tenga cartas para invocar, 
+    //se analiza si el jugador es AI, en dicho caso se llama al metodo AI.GetCardToInvoke  el cual devuelve la coordenada de la 
+    //carta a invocar; en caso contrario, se pide al usuario la cooderdenada de la carta a invocar.
     {
         while (this.Energy > 0 && Rules.CanInvoke(this))
         {
@@ -55,8 +57,8 @@ public class ConsolePlayer : Player
             int effectCoordinates = -1;
             if (IsAI)
             {
-                cardCoordinates = AI.GetAttackingCard(this, enemyPlayer, game);
-                targetCardCoordinates = AI.GetCardToAttack(this, enemyPlayer, game);
+                cardCoordinates = AI.GetFightingCard(this, enemyPlayer, game);
+                targetCardCoordinates = AI.GetTargetCard(this, enemyPlayer, game);
                 if (!AI.WantCastEffect(this, enemyPlayer, game))
                 {
                     Rules.AttackCard(this, enemyPlayer, cardCoordinates, targetCardCoordinates, game);

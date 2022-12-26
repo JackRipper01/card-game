@@ -4,16 +4,16 @@ public static class AI
 {
     public static int GetCardToInvoke(Player currentPlayer, Player enemyPlayer, Game game)
     {
-        int cardWithMaxAtk = SelectingCardWithLargestATK(currentPlayer, currentPlayer.Hand);
+        int cardWithMaxAtk = SelectingOwnCardWithLargestATK(currentPlayer, currentPlayer.Hand);
         int cardWithLargestHealth = SelectingOwnCardWithLargestHealth(currentPlayer, currentPlayer.Hand);
         return (cardWithMaxAtk + cardWithLargestHealth) % 2 == 0 ? cardWithMaxAtk : cardWithLargestHealth;
     }
 
-    public static int GetAttackingCard(Player currentPlayer, Player enemyPlayer, Game game) => SelectingCardWithLargestATK(currentPlayer, game.Board[currentPlayer]);
+    public static int GetFightingCard(Player currentPlayer, Player enemyPlayer, Game game) => SelectingOwnCardWithLargestATK(currentPlayer, game.Board[currentPlayer]);
 
-    public static int GetCardToAttack(Player currentPlayer, Player enemyPlayer, Game game) => SelectingCardWithMinorHealth(currentPlayer, enemyPlayer, game.Board[enemyPlayer]);
+    public static int GetTargetCard(Player currentPlayer, Player enemyPlayer, Game game) => SelectingCardWithMinorHealth(currentPlayer, enemyPlayer, game.Board[enemyPlayer]);
 
-    public static int SelectingCardWithLargestATK(Player currentPlayer, List<Card> cardList)
+    public static int SelectingOwnCardWithLargestATK(Player currentPlayer, List<Card> cardList)
     {
         int result = 0;
         int largestAtk = 0;
