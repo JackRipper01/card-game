@@ -84,7 +84,7 @@ public static class Print
         Console.WriteLine($"{enemyPlayer.Name}'s Cards:");
         Console.WriteLine();
         Print.ShowPlayerCards(game.Board[enemyPlayer]);
-        Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
         Print.ShowPlayerCards(game.Board[currentPlayer]);
         Console.WriteLine();
         Console.WriteLine($"{currentPlayer.Name}'s Cards:");
@@ -100,12 +100,11 @@ public static class Print
     {
         Console.WriteLine();
         Print.ShowPlayerEnergy(currentPlayer);
+        Console.Write($"   Deck: {currentPlayer.Deck.Count}");
         Console.WriteLine();
         Print.Hand(currentPlayer);
         Console.WriteLine();
         Print.Field(currentPlayer, enemyPlayer, Game);
         Console.WriteLine();
     }
-
-
 }

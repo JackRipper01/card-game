@@ -135,7 +135,7 @@ namespace MiniCompiler
         {
             //analiza token por token en la lista de token y eliminando cada token "comido",y va creando el AST
             while (tokenList.Count > 0)
-            {//TO DO: make a few methods in UtilsInterpreter to verify if the input is valid
+            {//TO DO: devolver exception cuando este mal escrito algo
                 Token subject = tokenList[0];
                 if (subject.type == TokenType.END)
                 { tokenList.RemoveAt(0); continue; }
