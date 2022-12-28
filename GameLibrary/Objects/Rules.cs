@@ -4,20 +4,22 @@ namespace GameLibrary.Objects;
 
 public static class Rules
 {
-    public static bool CanInvoke(Player currentPlayer) => currentPlayer.Hand.Count != 0;
+    public static bool CanInvoke(Player currentPlayer, Game game) => currentPlayer.Hand.Count != 0 && game.Board[currentPlayer].Count < Game.BoardSize;
     public static bool CanFight(Player currentPlayer, Player enemyPlayer, Game game) => game.Board[currentPlayer].Count != 0 && game.Board[enemyPlayer].Count != 0;
     public static void InvokeCard(Player currentPlayer, Dictionary<Player, List<Card>> board, int userInput)
     {
+        if (board[currentPlayer].Count >= Game.BoardSize)
+            throw new Exception("No puedes invocar , campo lleno.");
         var cardToInvoke = currentPlayer.Hand.ElementAt(userInput);
         currentPlayer.Invoke(cardToInvoke, board);
-        currentPlayer.DecreaseEnergy();
+        currentPlayer.DecreaseEnergy(3);
     }
     public static void AttackCard(Player currentPlayer, Player currentOpponent, int attackingCardCoordinates, int targetCardCoordinates, Game game)
     {
         var attackingCard = game.Board[currentPlayer].ElementAt(attackingCardCoordinates);
         var cardToAttack = game.Board[currentOpponent].ElementAt(targetCardCoordinates);
         attackingCard.Attack(cardToAttack);
-        currentPlayer.DecreaseEnergy();//atacar cuesta 1 de energia
+        currentPlayer.DecreaseEnergy(2);//atacar cuesta 1 de energia
     }
     public static void CastEffect(Player currentPlayer, Player enemyPlayer, int cardCoordinates, int targetCardCoordinates, Game game, IEffect effect)
     {
@@ -25,7 +27,7 @@ public static class Rules
         Card targetCard = game.Board[enemyPlayer][targetCardCoordinates];//obteniendo la carta objetivo
 
         effect.ActivateEffect(ownCard, targetCard, game, currentPlayer.Number, enemyPlayer.Number);
-        currentPlayer.DecreaseEnergy(2);//lanzar efecto cuesta 2 de energia
+        currentPlayer.DecreaseEnergy(3);//lanzar efecto cuesta 2 de energia
 
     }
     public static bool IsEndOfGame(Player Player1, Player Player2, Game game)

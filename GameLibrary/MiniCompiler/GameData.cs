@@ -38,8 +38,6 @@ public static class GameData
         CardStats.Add("NOCInDeck(Player2)", 0);
         CardStats.Add("GetEnergy(Player1)", 0);
         CardStats.Add("GetEnergy(Player2)", 0);
-
-
     }
 
     public static void UpdatingGameActionsDic(Card ownCard, Card targetCard, Game gameState)
