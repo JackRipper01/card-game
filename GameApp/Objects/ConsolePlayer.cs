@@ -9,7 +9,7 @@ public class ConsolePlayer : Player
     //se analiza si el jugador es AI, en dicho caso se llama al metodo AI.GetCardToInvoke  el cual devuelve la coordenada de la 
     //carta a invocar; en caso contrario, se pide al usuario la cooderdenada de la carta a invocar.
     {
-        while (this.Energy > 0 && Rules.CanInvoke(this, game))
+        while (Rules.CanInvoke(this, game))
         {
 
             Print.GameInformation(this, enemyPlayer, game);
@@ -46,9 +46,9 @@ public class ConsolePlayer : Player
     }
     public void Fight(Player enemyPlayer, Game game)
     {
-        if (!(this.Energy > 0 && Rules.CanFight(this, enemyPlayer, game)))
+        if (!(Rules.CanFight(this, enemyPlayer, game)))
         { Console.WriteLine("This Player can't fight right now ."); return; }
-        while (this.Energy > 0 && Rules.CanFight(this, enemyPlayer, game))
+        while (Rules.CanFight(this, enemyPlayer, game))
         {
             Print.GameInformation(this, enemyPlayer, game);
 

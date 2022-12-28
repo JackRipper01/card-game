@@ -100,7 +100,7 @@ public static class Print
     {
         Console.WriteLine();
         Print.ShowPlayerEnergy(currentPlayer);
-        Console.Write($"   Deck: {currentPlayer.Deck.Count}");
+        Console.Write($"Deck: {currentPlayer.Deck.Count}");
         Console.WriteLine();
         Print.Hand(currentPlayer);
         Console.WriteLine();

@@ -19,8 +19,10 @@ class Program
         bool wantIA = UtilsForConsole.UserAnswer();
         Console.WriteLine();
         Console.WriteLine("Creating Decks...");
-        var deck1 = Start.GenerateDeck(0);
-        var deck2 = Start.GenerateDeck(1);
+        //OJOOOOOOOOOOOOOO
+        //creen algun metodo para mezclar cada deck creado ya q las cartas creadas por el usuario son adicionadas al final de los decks siempre,eso esta feo
+        var deck1 = Start.GenerateDeck(3);
+        var deck2 = Start.GenerateDeck(3);
         Console.WriteLine();
 
         Console.WriteLine("Choose a name for Player1: ------ ");

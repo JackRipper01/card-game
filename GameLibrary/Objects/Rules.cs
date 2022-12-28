@@ -4,8 +4,8 @@ namespace GameLibrary.Objects;
 
 public static class Rules
 {
-    public static bool CanInvoke(Player currentPlayer, Game game) => currentPlayer.Hand.Count != 0 && game.Board[currentPlayer].Count < Game.BoardSize;
-    public static bool CanFight(Player currentPlayer, Player enemyPlayer, Game game) => game.Board[currentPlayer].Count != 0 && game.Board[enemyPlayer].Count != 0;
+    public static bool CanInvoke(Player currentPlayer, Game game) => currentPlayer.Energy - 3 >= 0 && currentPlayer.Hand.Count != 0 && game.Board[currentPlayer].Count < Game.BoardSize;
+    public static bool CanFight(Player currentPlayer, Player enemyPlayer, Game game) => currentPlayer.Energy - 2 >= 0 && game.Board[currentPlayer].Count != 0 && game.Board[enemyPlayer].Count != 0;
     public static void InvokeCard(Player currentPlayer, Dictionary<Player, List<Card>> board, int userInput)
     {
         if (board[currentPlayer].Count >= Game.BoardSize)
@@ -19,7 +19,7 @@ public static class Rules
         var attackingCard = game.Board[currentPlayer].ElementAt(attackingCardCoordinates);
         var cardToAttack = game.Board[currentOpponent].ElementAt(targetCardCoordinates);
         attackingCard.Attack(cardToAttack);
-        currentPlayer.DecreaseEnergy(2);//atacar cuesta 1 de energia
+        currentPlayer.DecreaseEnergy(2);//atacar cuesta 2 de energia
     }
     public static void CastEffect(Player currentPlayer, Player enemyPlayer, int cardCoordinates, int targetCardCoordinates, Game game, IEffect effect)
     {
