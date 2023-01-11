@@ -31,7 +31,7 @@ class Program
         Player player2 = new ConsolePlayer(new Player(Console.ReadLine(), deck2, 2, false));
 
         // //entradas de usuario de prueba 
-        //string Card = "Name: Franco Henandez ; ATK: 0 ; HP: 20 ; Specie: Angel ; EffectName: asdasad ; Draw(Player1) ;";
+        //string Card = "Name: Franco Henandez ; ATK: 0 ; HP: 20 ; Specie: Angel ; EffectName: asdasad ; IncreaseEnergy(Player1) ;";
         //string Card = "Name: Magela Cornelio ; ATK: 2 ; HP: 50 ; Specie: Angel ;";
         // string Effect = "EffectName: Personalized ; ownCard.ATK = targetCard.ATK ; IF: ownCard.HP ownCard.MaxHP < ; ownCard.HP = 5 4 + 1 - ; targetCard.ATK = 1 ; EndIF ; IF: targetCard.HP targetCard.MaxHP 2 / > ; IF: targetCard.HP 50 < ; ownCard.ATK = 50 ; EndIF ; IF: targetCard.HP 50 > ; ownCard.HP = 100 ; EndIF ;";
         // //Explicacion del efecto de arriba :atake de mi carta = atake del enemigo, si mi vida es menor q la mitad de la vida max ,curame 8 de vida y el atake enemigo =1.end if.  si vida enemigo es mayor q su mitad max entonces si su vida es < 50 ,mi atake = 50 fin if. Si vida enemigp > 50 , mi vida = 100. endif
@@ -120,6 +120,7 @@ class Program
             ConsolePlayer playingPlayer = (ConsolePlayer)currentPlayer;
             System.Console.WriteLine("//// Invocation Phase ////"); Console.WriteLine(); playingPlayer.PlayInvocationPhase(enemyPlayer, game);
             System.Console.WriteLine("//// Fight Phase ////"); Console.WriteLine(); playingPlayer.Fight(enemyPlayer, game);
+
             Console.Clear();
 
             Print.GameInformation(currentPlayer, enemyPlayer, game);

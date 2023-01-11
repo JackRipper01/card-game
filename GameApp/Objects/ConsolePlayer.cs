@@ -47,7 +47,7 @@ public class ConsolePlayer : Player
     public void Fight(Player enemyPlayer, Game game)
     {
         if (!(Rules.CanFight(this, enemyPlayer, game)))
-        { Console.WriteLine("This Player can't fight right now ."); return; }
+        { Console.WriteLine("This Player can't fight right now ."); Print.PressEnterToContinue(); return; }
         while (Rules.CanFight(this, enemyPlayer, game))
         {
             Print.GameInformation(this, enemyPlayer, game);

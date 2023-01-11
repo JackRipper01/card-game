@@ -27,7 +27,7 @@ public static class Rules
         Card targetCard = game.Board[enemyPlayer][targetCardCoordinates];//obteniendo la carta objetivo
 
         effect.ActivateEffect(ownCard, targetCard, game, currentPlayer.Number, enemyPlayer.Number);
-        currentPlayer.DecreaseEnergy(3);//lanzar efecto cuesta 2 de energia
+        currentPlayer.DecreaseEnergy(3);//lanzar efecto cuesta 3 de energia
 
     }
     public static bool IsEndOfGame(Player Player1, Player Player2, Game game)
