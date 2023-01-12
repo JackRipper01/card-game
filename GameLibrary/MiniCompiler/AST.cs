@@ -3,6 +3,11 @@ interface IExpr //creo esta interfaz para solamente llamar .Evaluate a cada tipo
 {
     public int Evaluate();
 }
+
+
+///////////////////////////////////////////////     BINARY EXPRESSION       ////////////////////////////
+
+
 abstract class BinaryExpr : IExpr//clase d la cual heredaran todas las expresiones binarias .
 {
     public IExpr left;
@@ -53,28 +58,6 @@ class Div : BinaryExpr
         return left.Evaluate() / right.Evaluate();
     }
 }
-
-class Number : IExpr//expresion basica no binaria,devuelve el valor de la expresion
-{
-    public int value;
-    public Number(int value)
-    {
-        this.value = value;
-    }
-    public int Evaluate()
-    {
-        return value;
-    }
-}
-
-class Identifier : IExpr//expresion basica no binaria q representa el valor actual en el juego,de alguna estadistica del juego ,este valor es extraido del diccionario de estadisticas de cartas.
-{
-    string key;
-    public Identifier(string key) => this.key = key;
-
-    public int Evaluate() => GameData.CardStats[key];
-}
-
 class Higher : BinaryExpr//operacion binaria q verifica si el resultado de evaluar la expresion de la isq es MAYOR QUE el resultado de hacer lo mismo en la derecha,devuelve true si se cumple,false si no.
 {
     public Higher(IExpr left, IExpr right) : base(left, right) { }
@@ -140,6 +123,45 @@ class OR : BinaryExpr//operacion binaria q devuelve 1 si el resultado de evaluar
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////       BASIC EXPRESSIONS       /////////////////////////////////
+
+
+
+class Number : IExpr//expresion basica no binaria,devuelve el valor de la expresion
+{
+    public int value;
+    public Number(int value)
+    {
+        this.value = value;
+    }
+    public int Evaluate()
+    {
+        return value;
+    }
+}
+
+class Identifier : IExpr//expresion basica no binaria q representa el valor actual en el juego,de alguna estadistica del juego ,este valor es extraido del diccionario de estadisticas de cartas.
+{
+    string key;
+    public Identifier(string key) => this.key = key;
+
+    public int Evaluate() => GameData.CardStats[key];
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+////////////////////////////////////////////      INSTRUCTIONS      ////////////////////////////////////////
+
 
 public interface Iinstruction//forma de una instruccion,una asignacion de un valor a un identificadr por ejemplo,un If,el nodo raiz,etc.
 {
@@ -197,6 +219,10 @@ class Action : Iinstruction//accion del juego ,ejecuta la accion del diccionario
         GameData.GameActions[stringAction.value]();
     }
 }
+////////////////////////////////////////////////////////////
+
+
+
 class ClientEffectInstructionsAST : Iinstruction//nodo principal y raiz donde contiene uuna lista de instrucciones donde cada instruccion va a ser ejecutada y va a hacer lo q le toca,evaluandose recursivamente el metodo Evaluate() y Execute() hasta q se altere el juego de manera satisfactoria.
 {
     public List<Iinstruction> instructions = new List<Iinstruction>();

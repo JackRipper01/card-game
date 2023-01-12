@@ -36,15 +36,15 @@ class Program
         // string Effect = "EffectName: Personalized ; ownCard.ATK = targetCard.ATK ; IF: ownCard.HP ownCard.MaxHP < ; ownCard.HP = 5 4 + 1 - ; targetCard.ATK = 1 ; EndIF ; IF: targetCard.HP targetCard.MaxHP 2 / > ; IF: targetCard.HP 50 < ; ownCard.ATK = 50 ; EndIF ; IF: targetCard.HP 50 > ; ownCard.HP = 100 ; EndIF ;";
         // //Explicacion del efecto de arriba :atake de mi carta = atake del enemigo, si mi vida es menor q la mitad de la vida max ,curame 8 de vida y el atake enemigo =1.end if.  si vida enemigo es mayor q su mitad max entonces si su vida es < 50 ,mi atake = 50 fin if. Si vida enemigp > 50 , mi vida = 100. endif
 
-        // " OJO, Esta mal escrito=>(arreglar)Effecto de prueba gordo con IF anidado EffectName: Personalized Effect ; enemyCard.AttackValue = 0 ; IF: ownCard.Health ownCard.MaxHealth < ; ownCard.MaxHealth = 5 4 + 1 - ; ownCard.AttackValue = ownCard.MaxAttackValue ; EndIF ; IF: enemyCard.Health enemyCard.MaxHealth 2 / > ; IF: enemyCard.Health 50 > ; EndIF ; IF: enemyCard.Health 50 < ; ownCard.AttackValue = 50 ; ownCard.Health = 100 ; EndIF ;"
-        for (int a = 1; a < 3; a++)
+        // " OJO, Esta mal escrito lo siguiente(arreglar)=>Effecto de prueba gordo con IF anidado EffectName: Personalized Effect ; enemyCard.AttackValue = 0 ; IF: ownCard.Health ownCard.MaxHealth < ; ownCard.MaxHealth = 5 4 + 1 - ; ownCard.AttackValue = ownCard.MaxAttackValue ; EndIF ; IF: enemyCard.Health enemyCard.MaxHealth 2 / > ; IF: enemyCard.Health 50 > ; EndIF ; IF: enemyCard.Health 50 < ; ownCard.AttackValue = 50 ; ownCard.Health = 100 ; EndIF ;"
+        for (int a = 0; a < 2; a++)
         {
             Player player = player1.Number == a ? player1 : player2;
 
             Console.WriteLine($" {player.Name}, Would you like to create your own Card/Cards? (press: 1 = true ,0 = false");
 
             bool wantCreateCard = UtilsForConsole.UserAnswer();
-            // adding cards to a list to test the interpreter
+
             if (wantCreateCard)
             {
                 Interpreter interpreter = new Interpreter();
@@ -98,7 +98,7 @@ class Program
             Player currentPlayer = Game.GetPlayerTurnOrder(player1, player2, game.TurnCounter)[0];
             Player enemyPlayer = Game.GetPlayerTurnOrder(player1, player2, game.TurnCounter)[1];
 
-            if (Game.IsBeginningOfTurn(game.TurnCounter, drawEvery, player1, player2))
+            if (Game.IsBeginningOfTurn(game.TurnCounter, drawEvery, player1, player2))//dentro es aumentada la energy de cada player en 2
             {
                 System.Console.WriteLine("//// Draw Phase ////");
                 System.Console.WriteLine();
@@ -132,7 +132,7 @@ class Program
             Print.PressEnterToContinue();
 
             Console.Clear();
-            game.EndTurn();//dentro es aumentada la energy de cada player en 2
+            game.EndTurn();
 
         }
         Console.WriteLine("///////////GAME OVER//////////");

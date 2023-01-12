@@ -126,7 +126,7 @@ namespace MiniCompiler
                         tokenList.Add(new Token(TokenType.OR));
                         break;
                     default:
-                        throw new FormatException();
+                        throw new FormatException(message: "Tienes un error en la sintaxis");
                 }
             }
         }
@@ -135,7 +135,7 @@ namespace MiniCompiler
         {
             //analiza token por token en la lista de token y eliminando cada token "comido",y va creando el AST
             while (tokenList.Count > 0)
-            {//TO DO: devolver exception cuando este mal escrito algo
+            {//TO DO: ser mas exigente con las excepciones cuando algo este mal escrito en el codigo del usuario
                 Token subject = tokenList[0];
                 if (subject.type == TokenType.END)
                 { tokenList.RemoveAt(0); continue; }
@@ -172,10 +172,10 @@ namespace MiniCompiler
 
                 else if (subject.type == TokenType.IDENTIFIER)
                 {
-                    if (tokenList[1].type == TokenType.ASSIGN)// <=> si lo q le sigue no es un "=",lanza excepcion
+                    if (tokenList[1].type == TokenType.ASSIGN)// = si lo q le sigue no es un "=",lanza excepcion
                         tokenList.RemoveAt(1);
                     else
-                        throw new FormatException();
+                        throw new FormatException(message: " Tienes un error de asignacion en la sintaxis");
 
                     tokenList.RemoveAt(0);
                     instructionList.Add(new Assignment(subject, ParseExpr(0)));

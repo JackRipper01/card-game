@@ -71,14 +71,4 @@ public static class Rules
         return result;
     }
 }
-//public static List<string> GetRulesList(Player currentPlayer, Player enemyPlayer, Game game)
-// {
-//     List<string> actions = new List<string>();
-//     Player playingPlayer = Game.GetPlayerTurnOrder(currentPlayer, enemyPlayer, game.TurnCounter)[0];
-//     if (playingPlayer.Hand.Count != 0)
-//         actions.Add("Invocation's Phase");
-//     if ((playingPlayer.Energy != 0) && (game.Board[playingPlayer].Count != 0))
-//         actions.Add("Fight's Phase");
-//     actions.Add("End Turn");
-//     return actions;
-// }
+
